@@ -40,6 +40,4 @@ elif version_simplex == 2:
     resolucionmatrices.maximizacion(simplex)
 
 else:
-    version_simplex = int(input("Valor ingresado no válido, vuelva a intentarlo"))
-
-
+    version_simplex = int(input("Valor no válido, vuelva a intentarlo"))

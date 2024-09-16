@@ -1,4 +1,5 @@
-def new_maxfunct(num_variables, num_restricciones):  # Agrega la ecuacion a maximizar a la matriz
+# Agrega la ecuacion a maximizar a la matriz
+def new_maxfunct(num_variables, num_restricciones):
     maximizar = []
     print("Ingrese el valor de las variables")
     for i in range(num_variables):
@@ -12,14 +13,16 @@ def new_maxfunct(num_variables, num_restricciones):  # Agrega la ecuacion a maxi
             i -= 1
             continue
 
-    for i in range(num_restricciones + 1):  # Agrego un '0' por restriccion y uno por la disponibilidad.
+# Agrego un '0' por restriccion y uno por la disponibilidad.
+    for i in range(num_restricciones + 1):
         maximizar.append(0)
     print(f"Funcion a maximizar: {maximizar}", "\n")
 
     return maximizar
 
 
-def create_restriction(simplex, num_variables, num_restricciones):  # Agrega las restricciones a la matriz
+# Agrega las restricciones a la matriz
+def create_restriction(simplex, num_variables, num_restricciones):
     for i in range(num_restricciones):
         restriccion = []
 
@@ -38,9 +41,10 @@ def create_restriction(simplex, num_variables, num_restricciones):  # Agrega las
         for j in range(num_restricciones):  # Agrego un '0' por restriccion.
             restriccion.append(0)
 
-        restriccion[num_variables + i] = 1  # Agrego la variable de Holguera a la restriccion actual.
+# Agrego la variable de Holguera a la restriccion actual.
+        restriccion[num_variables + i] = 1
 
-        valor = input(f"Disponibilidad del recurso: ")
+        valor = input("Disponibilidad del recurso: ")
 
         if valor.isdigit():
             valor = int(valor)
@@ -53,4 +57,3 @@ def create_restriction(simplex, num_variables, num_restricciones):  # Agrega las
 
         simplex.append(restriccion)
     return
-

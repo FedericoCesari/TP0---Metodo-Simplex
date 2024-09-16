@@ -1,7 +1,8 @@
 def encontrarColPivote(simplex):
     max_negative = 0
     columna = -1
-    for i in range(len(simplex[0])):  # Encuentra columna del pivote en la funcion a maximizar.
+    # Encuentra columna del pivote en la funcion a maximizar.
+    for i in range(len(simplex[0])):
         if simplex[0][i] < max_negative:
             max_negative = simplex[0][i]
             columna = i  # Indice valor mas negativo // Columa del pivote
@@ -9,7 +10,8 @@ def encontrarColPivote(simplex):
 
 
 def encontrarfilapivote(simplex, columna):
-    pivote = simplex[1][len(simplex[1]) - 1] / simplex[1][columna]  # Primer valor a comparar para encontrar fila del pivote
+    # Primer valor a comparar para encontrar fila del pivote
+    pivote = simplex[1][len(simplex[1]) - 1] / simplex[1][columna]
     # Empiezo en 1 porque la primer fila contiene la funcion a maximizar
     fila = 1
     for i in range(2, len(simplex)):  # Encuentra fila del pivote
@@ -34,10 +36,12 @@ def maximizacion(simplex):
         col_variables.append(col)  # Guardo la columna // Numero de variable
 
         valor = simplex[fila][col]
-        for i in range(len(simplex[fila])):  # Convierto pivote en 1 y modifico el resto de la fila
-            simplex[fila][i] = simplex[fila][i] / valor  # f(x) = x / valor_pivote
-
-        for i in range(len(simplex)):  # Convierto numeros superiores e inferiores en 0.
+        # Convierto pivote en 1 y modifico el resto de la fila
+        for i in range(len(simplex[fila])):
+            # f(x) = x / valor_pivote
+            simplex[fila][i] = simplex[fila][i] / valor
+        # Convierto numeros superiores e inferiores en 0.
+        for i in range(len(simplex)):
             if simplex[i][col] != 0 and i != fila:
                 valor = simplex[i][col]
                 for j in range(len(simplex[i])):
