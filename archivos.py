@@ -1,5 +1,4 @@
 import os
-import glob
 
 def cargar_matriz_desde_archivo(ruta_archivo):
     matriz = []

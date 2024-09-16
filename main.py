@@ -4,7 +4,9 @@ import archivos
 
 print("Bienvenido al sistema de resolución SIMPLEX\n")
 print("Para empezar, elija una de las siguientes opciones:\n")
-version_simplex = int(input(" si desea ingresar las variables manualmente ingrese 1:\n Si desea ingresar la matriz desde un archivo .txt ingrese 2:\n "))
+print("[1] Carga manual")
+print("[2] Carga por archivo")
+version_simplex = int(input("Seleccione una opcion: "))
 
 if version_simplex == 1:
 

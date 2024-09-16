@@ -23,7 +23,7 @@ def create_restriction(simplex, num_variables, num_restricciones):  # Agrega las
     for i in range(num_restricciones):
         restriccion = []
 
-        print("Ingrese el valor de las variables")
+        print("Ingrese el valor de las variables de restricción")
         for variable in range(num_variables):
             valor = input(f"X{variable + 1}: ")
 
