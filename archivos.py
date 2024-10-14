@@ -28,11 +28,16 @@ def listar_archivos_txt(directorio):
 # Función para mostrar los archivos enumerados y permitir la selección
 def seleccionar_archivo(archivos):
     # Pedir al usuario que seleccione un archivo usando un número
-    opcion = int(input("Seleccione el número del archivo: ")) - 1
+    opcion = 0
+    
+    while opcion not in range(1, len(archivos)+1):
+        try:
+            opcion = int(input("Ingrese una opción: "))
+            if opcion not in range(1, len(archivos)+1):
+                print("Valor no válido, vuelva a intentarlo.")
+        except ValueError:
+            print("Entrada inválida. Por favor, ingrese un número entero.")
 
-    # Verificar si la opción es válida
-    while 0 > opcion > len(archivos):
-        print("\n Opción inválida. Intente de nuevo.")
-        opcion = int(input("Seleccione el número del archivo: ")) - 1
-    else:
-        return archivos[opcion]  # Devuelve el nombre del archivo seleccionado
+    if opcion in range(1,len(archivos)+1):
+        return archivos[opcion-1]
+    
