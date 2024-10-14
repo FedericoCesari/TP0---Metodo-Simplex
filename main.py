@@ -1,13 +1,23 @@
 import matrices
 import resolucionmatrices
 import archivos
+import matricessalida
+import numpy as np
 
 print("Bienvenido al sistema de resolución SIMPLEX\n")
 print("Para empezar, elija una de las siguientes opciones:\n")
 print("[1] Carga manual")
 print("[2] Carga por archivo")
-version_simplex = int(input("Seleccione una opcion: "))
+version_simplex=0
 
+while version_simplex not in (1, 2):
+    try:
+        version_simplex = int(input("Ingrese una opción: "))
+        if version_simplex not in (1, 2):
+            print("Valor no válido, vuelva a intentarlo.")
+    except ValueError:
+        print("Entrada inválida. Por favor, ingrese un número entero.")
+    
 if version_simplex == 1:
 
     num_variables = int(input("Ingrese numero de variables: "))
@@ -22,8 +32,16 @@ if version_simplex == 1:
     original = simplex  # Guardo la matriz con la que se va a trabajar
     for i in range(len(simplex)):
         print(simplex[i])
+        
+    # Inicializar la matriz simplex
+    matricessalida.matrices_generadas.append(np.array(simplex))
 
-    resolucionmatrices.maximizacion(simplex)
+    resolucionmatrices.maximizacion(simplex, matricessalida.matrices_generadas)
+    
+    # Al final, guarda las matrices en un archivo CSV
+    matricessalida.save_matrices_to_csv(matrices_generadas, 'salidas.csv')
+    print("Matrices guardadas en 'salidas.csv'")
+
 
 elif version_simplex == 2:
     directorio = "Archivos Matrices"
@@ -36,8 +54,13 @@ elif version_simplex == 2:
     original = simplex  # Guardo la matriz con la que se va a trabajar
     for i in range(len(simplex)):
         print(simplex[i])
+           
+    matricessalida.matrices_generadas.append(np.array(simplex))
+    
+    resolucionmatrices.maximizacion(simplex, matricessalida.matrices_generadas)
+    
 
-    resolucionmatrices.maximizacion(simplex)
+    matricessalida.save_matrices_to_csv(matricessalida.matrices_generadas, 'salidas.csv')
+    print("Matrices guardadas en 'salidas.csv'")
 
-else:
-    version_simplex = int(input("Valor no válido, vuelva a intentarlo"))
+
