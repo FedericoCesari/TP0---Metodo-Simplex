@@ -2,6 +2,7 @@ import matrices
 import resolucionmatrices
 import archivos
 import matricessalida
+import archivos2
 import numpy as np
 
 print("Bienvenido al sistema de resolución SIMPLEX\n")
@@ -46,10 +47,10 @@ if version_simplex == 1:
 elif version_simplex == 2:
     directorio = "Archivos Matrices"
 
-    lista_archivos = archivos.listar_archivos_txt(directorio)
-    seleccion = archivos.seleccionar_archivo(lista_archivos)
+    lista_archivos = archivos2.listar_archivos_txt(directorio)
+    seleccion = archivos2.seleccionar_archivo(lista_archivos)
     ruta = directorio + "/" + seleccion
-    simplex = archivos.cargar_matriz_desde_archivo(ruta)
+    simplex = archivos2.preparar_simplex(ruta)
 
     original = simplex  # Guardo la matriz con la que se va a trabajar
     for i in range(len(simplex)):
