@@ -26,7 +26,10 @@ def listar_archivos_txt(directorio):
         num += 1
     return archivos
 
+import numpy as np
+
 def preparar_simplex(filename):
+
     # Leer el archivo de texto
     with open(filename, 'r') as file:
         lines = file.readlines()
@@ -52,17 +55,16 @@ def preparar_simplex(filename):
     # La matriz inicial de coeficientes tendrá las variables originales y las de holgura
     matriz = np.zeros((num_restricciones + 1, num_variables + num_variables_holgura + 1))
     
+    # Llenamos la matriz con los coeficientes de la función objetivo
+    matriz[0, :num_variables] = -funcion_objetivo  # Función objetivo (negativa)
+    matriz[0, -1] = 0  # El valor de la función objetivo Z es 0
+    
     # Llenamos la matriz con los coeficientes de las restricciones
     for i in range(num_restricciones):
-        matriz[i, :num_variables] = restricciones[i + 1, :-1]      # Coeficientes de las restricciones
-        matriz[i, num_variables + i] = 1  # Variable de holgura (1 para cada restricción)
-        matriz[i, -1] = restricciones[i + 1, -1]  # Resultado de la restricción
-    
-    # Modificar la función objetivo: convertirla en negativa
-    matriz[0, :num_variables] = -funcion_objetivo
-    matriz[0, -1] = 0  # La última columna de la función objetivo es 0 (para el valor de Z)
+        matriz[i + 1, :num_variables] = restricciones[i + 1, :-1]  # Coeficientes de las restricciones
+        matriz[i + 1, num_variables + i] = 1  # Variable de holgura (1 para cada restricción)
+        matriz[i + 1, -1] = restricciones[i + 1, -1]  # Resultado de la restricción
     
     return matriz
-
 
 
