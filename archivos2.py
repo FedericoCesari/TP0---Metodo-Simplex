@@ -68,3 +68,17 @@ def preparar_simplex(filename):
     return matriz
 
 
+def verificacion(filename):
+     # Leer el archivo de texto
+    with open(filename, 'r') as file:
+        lines = file.readlines()
+    
+    try:
+        restricciones = []
+        for line in lines:
+        # Convertir la línea en una lista de números flotantes
+            row = list(map(float, line.strip().split()))
+            restricciones.append(row)
+            return True
+    except ValueError:
+        return False

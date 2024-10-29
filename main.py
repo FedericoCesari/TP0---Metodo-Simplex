@@ -50,18 +50,21 @@ elif version_simplex == 2:
     lista_archivos = archivos2.listar_archivos_txt(directorio)
     seleccion = archivos2.seleccionar_archivo(lista_archivos)
     ruta = directorio + "/" + seleccion
-    simplex = archivos2.preparar_simplex(ruta)
-
-    original = simplex  # Guardo la matriz con la que se va a trabajar
-    for i in range(len(simplex)):
-        print(simplex[i])
-           
-    matricessalida.matrices_generadas.append(np.array(simplex))
     
-    resolucionmatrices.maximizacion(simplex, matricessalida.matrices_generadas)
-    
+    if archivos2.verificacion(ruta):
+        simplex = archivos2.preparar_simplex(ruta)
 
-    matricessalida.save_matrices_to_csv(matricessalida.matrices_generadas, 'salidas.csv')
-    print("Matrices guardadas en 'salidas.csv'")
+        original = simplex  # Guardo la matriz con la que se va a trabajar
+        for i in range(len(simplex)):
+            print(simplex[i])
+               
+        matricessalida.matrices_generadas.append(np.array(simplex))
+        
+        resolucionmatrices.maximizacion(simplex, matricessalida.matrices_generadas)
+        
 
-
+        matricessalida.save_matrices_to_csv(matricessalida.matrices_generadas, 'salidas.csv')
+        print("Matrices guardadas en 'salidas.csv'")
+    else:
+        print("El archivo ingresado contiene valores no numéricos, verifique el archivo o intentelo con uno diferente")
+       
