@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 matrices_generadas=[]
 def save_matrices_to_csv(matrices_generadas, salidas):
-    with open('salidas.csv', 'w', newline='') as f:
+    with open('../salidas.csv', 'w', newline='') as f:
         for index, matrix in enumerate(matrices_generadas):
             df = pd.DataFrame(matrix)
             df.index.name = 'Fila'
