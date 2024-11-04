@@ -1,5 +1,7 @@
 import matricessalida
 import numpy as np
+
+
 def encontrarColPivote(simplex):
     max_negative = 0
     columna = -1
@@ -48,10 +50,9 @@ def maximizacion(simplex, matrices_generadas):
                 valor = simplex[i][col]
                 for j in range(len(simplex[i])):
                     simplex[i][j] = simplex[i][j] - (valor * simplex[fila][j])
-                    
+
         # Guardar la matriz actual
         matricessalida.matrices_generadas.append(np.array(simplex))
-
 
         print("")
         for i in range(len(simplex)):

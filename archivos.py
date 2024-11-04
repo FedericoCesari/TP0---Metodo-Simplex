@@ -29,7 +29,7 @@ def listar_archivos_txt(directorio):
 def seleccionar_archivo(archivos):
     # Pedir al usuario que seleccione un archivo usando un número
     opcion = 0
-    
+
     while opcion not in range(1, len(archivos)+1):
         try:
             opcion = int(input("Ingrese una opción: "))
@@ -38,6 +38,5 @@ def seleccionar_archivo(archivos):
         except ValueError:
             print("Entrada inválida. Por favor, ingrese un número entero.")
 
-    if opcion in range(1,len(archivos)+1):
+    if opcion in range(1, len(archivos)+1):
         return archivos[opcion-1]
-    
