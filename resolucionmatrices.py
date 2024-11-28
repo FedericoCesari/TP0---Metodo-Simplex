@@ -1,6 +1,6 @@
 import matricessalida
 import numpy as np
-
+from colorama import Fore, Style,Back
 
 def encontrarColPivote(simplex):
     max_negative = 0
@@ -53,16 +53,32 @@ def maximizacion(simplex, matrices_generadas):
 
         # Guardar la matriz actual
         matricessalida.matrices_generadas.append(np.array(simplex))
-
+        
         print("")
         for i in range(len(simplex)):
-            print(simplex[i])
+            if i != fila:
+                print(f"{Style.BRIGHT}{simplex[i]}")
+                continue
+            fila = "["
+            for j in range(len(simplex[i])):
+                if j == len(simplex[i])-1:
+                    fila = fila + str(simplex[i][j])
+                    continue
+                if j != col:
+                    fila = fila + str(simplex[i][j]) + ", "
+                    continue
+                pivote = f"{Back.CYAN}{simplex[i][j]}{Back.RESET}, "
+                fila += pivote
+            fila += "]"
+            print(fila)
 
         col = encontrarColPivote(simplex)
         fila = encontrarfilapivote(simplex, col)
         continue
 
     print("")
+    print(f"{Fore.RED}Resultado:")
+    
     for i in range(len(fila_variables)):
         valor = simplex[fila_variables[i]][len(simplex[fila_variables[i]]) - 1]
         variable = col_variables[i] + 1

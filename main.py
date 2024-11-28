@@ -2,7 +2,9 @@ import matrices
 import resolucionmatrices
 import matricessalida
 import archivos2
+import archivos
 import numpy as np
+from colorama import Style
 
 
 def menu_principal():
@@ -26,9 +28,19 @@ def menu_principal():
 
 
 def ingreso_manual():
-    num_variables = int(input("Ingrese numero de variables: "))
-    num_restricciones = int(input("Ingrese numero de restricciones: "))
-    print("")
+    num_variables=0
+    while not isinstance(num_variables, int) or num_variables <= 0:
+        try:
+            num_variables = int(input(f"{Style.BRIGHT}Ingrese numero de variables: "))
+        except ValueError:
+            print("Entrada no válida. Vuelva a intentarlo.")
+    num_restricciones=0
+    while not isinstance(num_restricciones, int) or num_restricciones <=0:
+        try:
+            num_restricciones = int(input("Ingrese numero de restricciones: "))
+        except ValueError:
+            print("Valor ingresado no válido. Intentelo nuevamente")
+            print("")
 
     simplex = []
 
@@ -37,7 +49,7 @@ def ingreso_manual():
 
     original = simplex  # Guardo la matriz con la que se va a trabajar
     for i in range(len(simplex)):
-        print(simplex[i])
+        print(f"{Style.BRIGHT}{simplex[i]}")
 
     # Inicializar la matriz simplex
     matricessalida.matrices_generadas.append(np.array(simplex))
