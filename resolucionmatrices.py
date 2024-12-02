@@ -37,48 +37,61 @@ def maximizacion(simplex, matrices_generadas):
 
     while col != -1:
         fila_variables.append(fila)  # Guardo la fila de la variable X
-        col_variables.append(col)  # Guardo la columna // Numero de variable
+        col_variables.append(col)  # Guardo la columna // Número de variable
 
         valor = simplex[fila][col]
-        # Convierto pivote en 1 y modifico el resto de la fila
+        # Convierto el pivote en 1 y modifico el resto de la fila
         for i in range(len(simplex[fila])):
-            # f(x) = x / valor_pivote
             simplex[fila][i] = simplex[fila][i] / valor
-        # Convierto numeros superiores e inferiores en 0.
+        # Convierto números superiores e inferiores en 0.
         for i in range(len(simplex)):
             if simplex[i][col] != 0 and i != fila:
                 valor = simplex[i][col]
                 for j in range(len(simplex[i])):
                     simplex[i][j] = simplex[i][j] - (valor * simplex[fila][j])
 
-        # Guardar la matriz actual
+        # Guardo la matriz actual para ir haciendo un seguimiento
         matricessalida.matrices_generadas.append(np.array(simplex))
-        
-        print("")
-        for i in range(len(simplex)):
-            if i != fila:
-                print(f"{Style.BRIGHT}{simplex[i]}")
-                continue
-            fila = "["
-            for j in range(len(simplex[i])):
-                if j == len(simplex[i])-1:
-                    fila = fila + str(simplex[i][j])
-                    continue
-                if j != col:
-                    fila = fila + str(simplex[i][j]) + ", "
-                    continue
-                pivote = f"{Back.CYAN}{simplex[i][j]}{Back.RESET}, "
-                fila += pivote
-            fila += "]"
-            print(fila)
 
+        print("")
+
+        # Cálculo del ancho máximo de cada columna
+        n_columnas = len(simplex[0])
+        ancho_columnas = []
+        for j in range(n_columnas):
+            # Calculo el ancho máximo de cada columna, considerando los valores de la matriz
+            max_len = max(len(f"{float(simplex[i][j]):.2f}") for i in range(len(simplex)))
+            ancho_columnas.append(max_len)
+
+        # Imprimo la matriz
+        for i in range(len(simplex)):
+            fila = ""
+
+            # Revisamos si estamos en la fila del pivote
+            if i == fila:
+                # Si es la fila del pivote, la destaco con color cian
+                fila = "["
+                for j in range(len(simplex[i])):
+                    # Resalto el pivote
+                    if j == col:
+                        fila += f"{Back.CYAN}{simplex[i][j]:.2f}{Back.RESET}, "
+                    else:
+                        fila += f"{simplex[i][j]:>{ancho_columnas[j]}.2f}, "
+                fila = fila[:-2] + "]"  # Elimino la última coma y cierro el corchete
+                print(fila)  # Imprimo la fila del pivote con el resaltado
+            else:
+                # Si no es la fila del pivote, la imprimo normalmente
+                print(
+                    f"{Style.BRIGHT}{' '.join([f'{float(x):>{ancho_columnas[j]}.2f}' for j, x in enumerate(simplex[i])])}{Style.RESET_ALL}")
+
+        # Actualizo el pivote para la siguiente iteración
         col = encontrarColPivote(simplex)
         fila = encontrarfilapivote(simplex, col)
         continue
 
     print("")
     print(f"{Fore.RED}Resultado:")
-    
+
     for i in range(len(fila_variables)):
         valor = simplex[fila_variables[i]][len(simplex[fila_variables[i]]) - 1]
         variable = col_variables[i] + 1

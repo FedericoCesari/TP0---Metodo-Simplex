@@ -57,7 +57,7 @@ def ingreso_manual():
     resolucionmatrices.maximizacion(simplex, matricessalida.matrices_generadas)
 
     # Al final, guarda las matrices en un archivo CSV
-    matricessalida.save_matrices_to_csv(matrices_generadas, 'salidas.csv')
+    matricessalida.save_matrices_to_csv(matricessalida.matrices_generadas, 'salidas.csv')
     print("Matrices guardadas en 'salidas.csv'")
 
 
@@ -70,10 +70,13 @@ def carga_por_archivo():
 
     if archivos2.verificacion(ruta):
         simplex = archivos2.preparar_simplex(ruta)
+        # ancho máximo de los números en cada columna, considerando decimales
+        # usamos un formato de 2 decimales como máximo
+        ancho_columna = max(len(f"{valor:.2f}") for fila in simplex for valor in fila)
 
         original = simplex  # Guardo la matriz con la que se va a trabajar
-        for i in range(len(simplex)):
-            print(simplex[i])
+        for fila in simplex:
+            print(" ".join(f"{valor:>{ancho_columna}.2f}" for valor in fila))
 
         matricessalida.matrices_generadas.append(np.array(simplex))
 
