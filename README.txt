@@ -56,7 +56,7 @@ En este ejemplo:
   - `1.0 2.0 2.0 10.0` es la segunda restricción (con disponibilidad máxima 10).
   - `3.0 2.0 1.0 15.0` es la segunda restricción (con disponibilidad máxima 15).
 
-Si decides usar archivos de ejemplo cargados por defecto, revisa los archivos proporcionados para verificar el formato correcto de las matrices.
+Si decides usar archivos, revisa los archivos proporcionados para verificar el formato correcto de las matrices.
 
 ¿Dónde pueden los usuarios obtener ayuda con este proyecto?
 ----------------------------------------------------------
